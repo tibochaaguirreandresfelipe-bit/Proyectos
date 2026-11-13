@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zimbra OneView</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    // Estilo "software de oficina": letra de Windows, grises y un solo azul fuerte
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Segoe UI"', 'Tahoma', 'Arial', 'sans-serif'] },
+          colors: { marca: { DEFAULT: '#1D4F91', oscuro: '#163C6F', claro: '#E6EEF8' } },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <style>
+    body { font-size: 13px; }
+    /* Pestañas del menú */
+    .pestana { border: 1px solid transparent; border-bottom: 0; margin-bottom: -1px; }
+    .pestana.activo { background: #F4F5F7; border-color: #CBD5E1; color: #1D4F91; font-weight: 600; }
+    /* Tablas tipo hoja de cálculo: filas alternadas */
+    .tabla tbody tr:nth-child(even) { background: #F8FAFC; }
+    .tabla tbody tr:hover { background: #E6EEF8; }
+    .tabla th { position: sticky; top: 0; }
+    /* Botón gris clásico */
+    .btn-gris { background: linear-gradient(#FFFFFF, #ECEEF1); }
+    .btn-gris:hover { background: linear-gradient(#F6F7F9, #E2E5EA); }
+  </style>
+</head>
+<body class="min-h-screen bg-[#F4F5F7] font-sans text-slate-800">
+
+  <!-- Barra de título -->
+  <header class="bg-marca text-white">
+    <div class="flex h-10 items-center gap-3 px-4">
+      <span class="text-sm font-bold tracking-wide">ZIMBRA ONEVIEW</span>
+      <span class="hidden border-l border-white/30 pl-3 text-xs text-white/75 sm:inline">Ventas y facturación · Sprint 1</span>
+      <span id="estadoBd" class="ml-auto flex items-center gap-1.5 text-xs text-white/80">● Verificando conexión…</span>
+    </div>
+  </header>
+
+  <!-- Menú en pestañas -->
+  <nav class="overflow-x-auto border-b border-slate-300 bg-slate-200">
+    <div class="flex min-w-max gap-0.5 px-3 pt-1.5">
+      <a href="#dashboard" data-vista="dashboard" class="pestana px-4 py-1.5 text-slate-700 hover:text-marca">Dashboard</a>
+      <a href="#productos" data-vista="productos" class="pestana px-4 py-1.5 text-slate-700 hover:text-marca">Productos</a>
+      <a href="#prospectos" data-vista="prospectos" class="pestana px-4 py-1.5 text-slate-700 hover:text-marca">Prospectos</a>
+      <a href="#propuestas" data-vista="propuestas" class="pestana px-4 py-1.5 text-slate-700 hover:text-marca">Propuestas y ventas</a>
+      <a href="#facturas" data-vista="facturas" class="pestana px-4 py-1.5 text-slate-700 hover:text-marca">Facturas y pagos</a>
+    </div>
+  </nav>
+
+  <main id="vista" class="mx-auto max-w-[1400px] p-3 pb-10 sm:p-5"></main>
+
+  <!-- Barra de estado inferior -->
+  <footer class="fixed inset-x-0 bottom-0 flex h-6 items-center gap-4 border-t border-slate-300 bg-slate-200 px-4 text-[11px] text-slate-600">
+    <span>Base de datos: zimbra_oneview</span>
+    <span class="hidden sm:inline">Sistemas Transaccionales · UNIMINUTO</span>
+    <span id="reloj" class="ml-auto"></span>
+  </footer>
+
+  <!-- Ventana modal (formularios y confirmaciones) -->
+  <div id="modal" class="fixed inset-0 z-50 hidden items-start justify-center bg-black/40 p-3 pt-[8vh]">
+    <div id="modalCaja" class="max-h-[85vh] w-full max-w-lg overflow-y-auto border border-slate-500 bg-white shadow-2xl"></div>
+  </div>
+
+  <!-- Notificaciones -->
+  <div id="toasts" class="pointer-events-none fixed bottom-9 right-3 z-[60] flex w-[calc(100%-1.5rem)] max-w-sm flex-col gap-2"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/productos.js"></script>
+  <script src="js/prospectos.js"></script>
+  <script src="js/propuestas.js"></script>
+  <script src="js/facturas.js"></script>
+</body>
+</html>
